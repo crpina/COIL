@@ -7,7 +7,7 @@ function App() {
     <>
       <div>
       <p>
-        Inicio... y subido a github
+        Inicio... y subido a github Matias Saldivar
       </p>
       </div>
     </>
