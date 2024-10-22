@@ -5,7 +5,16 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      screens:{
+        'iphone12':390,
+        'pc': '1024px', 
+      }
+      ,
+      spacing:{
+        'test': '726px',
+      }
+    },
   },
   plugins: [],
 }
