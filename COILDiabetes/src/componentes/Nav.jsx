@@ -7,7 +7,7 @@ function Nav() {
   
     return (
         <>
-        <nav className="bg-white border-gray-200 shadow-2xl dark:bg-gray-900 ">
+        <nav className="bg-white border-gray-200 shadow-xl ">
         <div className="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto ">
             
             <div className=" flex items-center space-x-3 rtl:space-x-reverse iphone12:size-24 pc:size-32">
