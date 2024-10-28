@@ -2,9 +2,61 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+ /* InfoPaciente.jsx */
 body{
 
     height: 100vh;
   
 }
   
+.div-info-paciente{
+    height: 640px;
+    width: 500px;
+    margin: 0 auto;
+    margin-top: 115px;
+    text-align: center;
+}
+
+.div-foto-paciente{
+    background-color: blue;
+    height: 160px;
+    width: 160px;
+    margin: 0 auto;
+    border-radius: 25%;
+}
+
+.div-foto-paciente img{
+    width: 160px;
+    height: 160px;
+    border-radius: 25%;
+}
+.div-campanita-paciente{
+    width: 100%;
+    height: 50px;
+    padding-top:20px;
+    
+}
+
+.div-campanita-paciente img{
+    width: 30px;
+    height: 30px;
+    margin:0 auto;
+}
+.div-datos-paciente{
+    width: 100%;
+    height: 250px;
+    padding-top:10px;
+
+}
+.div-datos-paciente p{
+    margin-top: 5px;
+}
+
+.radio-boton-paciente{
+    border: 0 none;
+    border-radius: 36px;
+  
+}
+/* InfoPaciente.jsx */
