@@ -1,10 +1,7 @@
 
 function Nav() {
   
-  
-  
-  
-  
+    
     return (
         <>
         <nav className="bg-white border-gray-200 shadow-xl ">

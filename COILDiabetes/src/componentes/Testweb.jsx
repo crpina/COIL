@@ -99,14 +99,18 @@ function Testweb() {
                                 <input className='mr-2 my-1'
                                     type="radio"
                                     value={idx + 1} // Almacenamos el índice + 1 como respuesta
-                                    {...register(`respuesta${index}`)} // Usamos register para manejar el input
-                                />
+                                    {...register(`respuesta${index}`, {required: true})}/>
                                 {opcion}
                             </label>
+                            
                         </div>
                     ))}
+       
                 </div>
+                
             ))}
+               
+
             <div className='flex justify-center p-8'>
 
                 <button type="submit" className='w-60 justify-center mt-3 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'>Enviar</button>

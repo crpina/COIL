@@ -1,6 +1,26 @@
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+
 
 function InfoPaciente (){
+
+
+    const [usuario, setUsuario] = useState({
+        tipo: null,
+        edad: null,
+        email: null,
+        contactoTelefonico: null,
+        estado: null,
+        seguimientosEnElAño: null,
+        promedioCalificacion: null,
+        estadoDiabetes: null,
+    });
+
+    useEffect(() => {
+
+
+    },[]);
+
 
     return (
         <>
