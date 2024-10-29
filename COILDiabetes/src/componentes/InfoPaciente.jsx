@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 function InfoPaciente (){
 
@@ -24,10 +25,11 @@ function InfoPaciente (){
                 <p>Estado de padecer diabetes: media-baja</p>
             </div>
 
-            <div className="flex flex-col items-center p-5">
-                <button className="radio-boton-paciente  flex w-60 justify-center mt-3 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 "
-                 type="submit">Hacer test
-                </button>
+                <div className="flex flex-col items-center p-5">
+                <Link to="/test"
+                className="radio-boton-paciente flex w-60  justify-center mt-3 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 "
+                > Hacer test
+                </Link>
 
                 <button className="radio-boton-paciente flex w-60  justify-center mt-3 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 "
                  type="submit">Ver resultado del test

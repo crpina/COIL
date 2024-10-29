@@ -17,8 +17,8 @@ function Nav() {
          
             <div className="block w-auto" id="navbar-default">
             <ul className=" flex flex-col p-4">
-                <li>
-                <a href="#" className="block  py-2 p-10 hover:bg-gray-100 md:hover:bg-transparent  md:hover:text-blue-700 y-700 iphone12:text-sm pc:text-2xl">Login</a>
+                <li> 
+                <a href="/login" className="block  py-2 p-10 hover:bg-gray-100 md:hover:bg-transparent  md:hover:text-blue-700 y-700 iphone12:text-sm pc:text-2xl">Login</a>
                 </li>
             </ul>
             </div>

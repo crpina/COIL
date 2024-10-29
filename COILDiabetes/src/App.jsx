@@ -1,25 +1,36 @@
-import Nav from "./componentes/Nav"
-import Info from "./componentes/Info"
-import Login from "./componentes/Login"
-<<<<<<< Updated upstream
-import Registro from "./componentes/Registro"
-import Testweb from "./componentes/Testweb"
-=======
-import InfoPaciente from "./componentes/infoPaciente"
->>>>>>> Stashed changes
-function App() {
-  
+import { Suspense } from "react";
+import { Provider } from "react-redux";
+import { BrowserRouter, Route, Navigate } from "react-router-dom";
+import store from "./redux/store";
+import Nav_bar from "./componentes/Nav";
+import Info from "./componentes/Info";
+import Login from "./componentes/Login";
+import Registro from "./componentes/Registro";
+import InfoPaciente from "./componentes/InfoPaciente";
+import Testweb from "./componentes/Testweb";
+import NotFound from "./models/notFound";
+import { PublicRoutes } from "./models/routes";
 
+function App() {
   return (
-    <>
-    <Nav />
-<<<<<<< Updated upstream
-    <Registro/>
-=======
-    <InfoPaciente/>
->>>>>>> Stashed changes
-    </>
-  )
+    <div className="App">
+      <Suspense fallback={<></>}>
+        <Provider store={store}>
+          <BrowserRouter>
+            <Nav_bar />
+            <NotFound>
+              <Route path="/" element={<Navigate to={PublicRoutes.INFO} />} />
+              <Route path={PublicRoutes.INFO} element={<Info />} />
+              <Route path={PublicRoutes.LOGIN} element={<Login />} />
+              <Route path={PublicRoutes.REGISTRAR} element={<Registro />} />
+              <Route path={PublicRoutes.INFOPAC} element={<InfoPaciente />} />
+              <Route path={PublicRoutes.TEST} element={<Testweb />} />
+            </NotFound>
+          </BrowserRouter>
+        </Provider>
+      </Suspense>
+    </div>
+  );
 }
 
-export default App
+export default App;

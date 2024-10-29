@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 
 function Registro () {
@@ -134,9 +135,10 @@ function Registro () {
             
 
                    <div className="flex justify-center pb-10 pt-6">
-                   <button className="flex w-60 justify-center mt-3 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 "
-                    type="submit">Registrar
-                   </button>
+                   <Link to="/login"
+                    className="flex w-60 justify-center mt-3 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    > Registrar
+                    </Link>
 
                     
 
