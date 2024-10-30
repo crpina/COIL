@@ -4,6 +4,7 @@ export const PublicRoutes = {
     REGISTRAR: 'registro',
     INFOPAC: 'infopac',
     TEST: 'test',
+    MEDICO: 'medic',
 }
 
 export const PrivateRoutes = {

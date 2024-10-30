@@ -13,16 +13,19 @@ function Login() {
             data.email === cuenta.email && data.contra === cuenta.contrasena
         );
 
-        if (cuentaValida && cuentaValida.tipo === "paciente") {
-            console.log("Válidos: " + data.email + " y " + data.contra);
-            navigate("/infopac");
-        if (cuentaValida && cuentaValida.tipo === "paciente") {
+        if (cuentaValida) {
+            if (cuentaValida.tipo === "paciente") {
                 console.log("Válidos: " + data.email + " y " + data.contra);
-                navigate("/infopac");    
+                navigate("/infopac");
+            } else if (cuentaValida.tipo === "medico") {
+                console.log("Válidos: " + data.email + " y " + data.contra);
+                navigate("/medic");
+            } else {
+                console.log("Tipo de cuenta no válido: " + cuentaValida.tipo);
+            }
         } else {
             console.log("NO válidos: " + data.email + " y " + data.contra);
         }
-        };
     }    
 
     return (

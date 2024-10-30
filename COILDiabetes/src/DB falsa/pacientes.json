@@ -1,0 +1,15 @@
+[
+    
+    {
+        "nombre": "carlos",
+        "email": "usuario@coil.com",
+        "contrasena": "chileANDMexico",
+        "tipo": "paciente",
+        "contacto": "133",
+        "estado": {
+            "seguimientos": "0",
+            "promedio": "0",
+            "probabilidad": "0"
+        }
+    }
+]
