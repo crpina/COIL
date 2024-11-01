@@ -1,28 +1,15 @@
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";  
 import { useEffect, useState } from "react";
+import pacientesData from "../DB falsa/pacientes.json";
 
 function InfoMedico() {
     const { register, handleSubmit } = useForm();
+
+    const [usuario] = useState(pacientesData[0]);
     
-    const [usuario, setUsuario] = useState({
-        tipo: null,
-        edad: null,
-        email: null,
-        contactoTelefonico: null,
-        estado: null,
-        seguimientosEnElAño: null,
-        promedioCalificacion: null,
-        estadoDiabetes: null,
-    });
-
-    useEffect(() => {
-        // Logic to fetch user data can go here
-    }, []);
-
     const onSubmit = (data) => {
         console.log("Comment submitted: ", data);
-        // Handle form submission logic here
     };
 
     return (
@@ -37,17 +24,17 @@ function InfoMedico() {
                 </div>
 
                 <div className="div-datos-paciente">
-                    <p>paciente</p>
-                    <p>edad: 22</p>
-                    <p>Email: usuario@gmail.com</p>
-                    <p>Contacto telefonico: 9534XXXXX</p>
-                    <p>Estado del usuario:</p>
-                    <p>Seguimientos en el año: 4</p>
-                    <p>Promedio de calificacion: 6/10</p>
-                    <p>Estado de padecer diabetes: media-baja</p>
+                    <p>Nombre: {usuario.nombre}</p>
+                    <p>Email: {usuario.email}</p>
+                    <p>Tipo: {usuario.tipo}</p>
+                    <p>Contacto telefónico: {usuario.contacto}</p>
+                    <p>Seguimientos en el año: {usuario.estado.seguimientos}</p>
+                    <p>Promedio de calificación: {usuario.estado.promedio}/10</p>
+                    <p>Probabilidad de padecer diabetes: {usuario.estado.probabilidad}</p>
                 </div>
+
                 <div>
-                <form onSubmit={handleSubmit(onSubmit)}>
+                    <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50">
                             <div className="px-4 py-2 bg-white rounded-t-lg">
                                 <label htmlFor="comment" className="sr-only">Your comment</label>
@@ -55,7 +42,7 @@ function InfoMedico() {
                                     id="comment"
                                     rows="4"
                                     className="w-full px-0 text-sm text-gray-900 bg-white border-0"
-                                    placeholder="Write a comment..."
+                                    placeholder="Empieza a escribir aqui"
                                     required
                                     {...register('comment')}
                                 ></textarea>

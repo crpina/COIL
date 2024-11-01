@@ -19,7 +19,7 @@ function Login() {
                 navigate("/infopac");
             } else if (cuentaValida.tipo === "medico") {
                 console.log("Válidos: " + data.email + " y " + data.contra);
-                navigate("/medic");
+                navigate("/pacientes");
             } else {
                 console.log("Tipo de cuenta no válido: " + cuentaValida.tipo);
             }

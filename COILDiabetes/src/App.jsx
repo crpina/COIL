@@ -9,6 +9,7 @@ import Registro from "./componentes/Registro";
 import InfoPaciente from "./componentes/InfoPaciente";
 import Testweb from "./componentes/Testweb";
 import InfoMedico from "./componentes/VistaMedico";
+import VistaPacientesMed from "./componentes/VistaPacientesMed";
 import NotFound from "./models/notFound";
 import { PublicRoutes } from "./models/routes";
 
@@ -27,6 +28,7 @@ function App() {
               <Route path={PublicRoutes.INFOPAC} element={<InfoPaciente />} />
               <Route path={PublicRoutes.TEST} element={<Testweb />} />
               <Route path={PublicRoutes.MEDICO} element={<InfoMedico />} />
+              <Route path={PublicRoutes.PACIENTES} element={<VistaPacientesMed />} />
             </NotFound>
           </BrowserRouter>
         </Provider>
