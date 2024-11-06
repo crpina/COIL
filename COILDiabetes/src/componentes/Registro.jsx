@@ -26,8 +26,8 @@ function Registro() {
                 "probabilidad": "sin seguimientos"
             },
             "tutor": {
-                "tutornombre": "no aplica",
-                "parentesco": "no aplica"
+                "tutornombre": null,
+                "parentesco": null
             },
             "politica": null,
         }
@@ -137,7 +137,7 @@ function Registro() {
                             <input type="text"
                                 placeholder="Nombre tutor"
                                 className="block w-full h-9 pl-2 bg-gray-50 border text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                                {...register("tutornombre", { maxLength: 20 })} />
+                                {...register("tutor.tutornombre", { maxLength: 20 })} />
                             {errors.tutor?.tutornombre?.type === 'maxLength' && <p className="text-red-600">"El nombre es demasiado largo"</p>}
                         </div>
 
@@ -146,7 +146,7 @@ function Registro() {
                             <input type="text"
                                 placeholder="Madre, padre, abuelo, etc."
                                 className="block w-full h-9 pl-2 bg-gray-50 border text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                                {...register("parentesco", { maxLength: 20 })} />
+                                {...register("tutor.parentesco", { maxLength: 20 })} />
                                 {errors.parentesco?.parentesco?.type === 'maxLength' && <p className="text-red-600">"El parentesco es demasiado largo"</p>}
                         </div>
                     </>

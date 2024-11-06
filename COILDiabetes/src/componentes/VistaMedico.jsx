@@ -65,7 +65,7 @@ function InfoMedico() {
                     </div>
                 </div>
 
-                {usuarioActual.tutor.tutornombre !== "no aplica" && (
+                {usuarioActual.tutor.tutornombre !== null && (
                     <div className="flex w-full items-center justify-center py-5 ">
                         <div className="flex flex-col py-1 px-2 w-full max-w-test shadow-md">
                             <p className="py-2 pc:text-xl iphone12:text-sm">Nombre tutor: {usuarioActual.tutor.tutornombre}</p>

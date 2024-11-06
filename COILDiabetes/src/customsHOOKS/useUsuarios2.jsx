@@ -13,8 +13,8 @@ const usuarios = [
             "probabilidad": "baja"
         },
         "tutor": {
-            "tutornombre": "no aplica",
-            "parentesco": "no aplica"
+            "tutornombre": null,
+            "parentesco": null
         },
         "polica": true,
     },
@@ -52,8 +52,8 @@ const usuarios = [
             "probabilidad": "media-alta"
         },
         "tutor": {
-            "tutornombre": "no aplica",
-            "parentesco": "no aplica"
+            "tutornombre": null,
+            "parentesco": null
         },
         "polica": true,
     },
