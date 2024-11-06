@@ -1,54 +1,95 @@
+import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";  
-import { useEffect, useState } from "react";
-import pacientesData from "../DB falsa/pacientes.json";
+import useInfologin from "../customsHOOKS/useInfologin";
+import useMsjMedico from "../customsHOOKS/useMjsMedico";
+import MensajeConfirmacion from './MensajeConfirmacion';  
 
 function InfoMedico() {
+    const mensaje = {
+        "fecha": "sin fecha",
+        "desde": "Carlos ",
+        "email": "medico@coil.com",
+        "para": "null",
+        "email2": "null",
+        "msj": "null"
+    };   
     const { register, handleSubmit } = useForm();
-
-    const [usuario] = useState(pacientesData[0]);
+    const { usuarioActual } = useInfologin();
+    const { agregarMensaje } = useMsjMedico();
     
-    const onSubmit = (data) => {
-        console.log("Comment submitted: ", data);
+    const date = new Date();
+    const [mensajeConfirmacionVisible, setMensajeConfirmacionVisible] = useState(false);  
+    const [mensajeConfirmacion, setMensajeConfirmacion] = useState(""); 
+
+    const onSubmit = async (data) => {
+        mensaje.fecha = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+        mensaje.para = usuarioActual.nombre;
+        mensaje.email2 = usuarioActual.email;
+        mensaje.msj = data.comment;
+        
+        await agregarMensaje(mensaje);
+        setMensajeConfirmacion("Mensaje enviado correctamente.");
+        setMensajeConfirmacionVisible(true);  
+    };
+
+    const handleAceptarConfirmacion = () => {
+        setMensajeConfirmacionVisible(false);  
     };
 
     return (
         <>
-            <div className="div-info-paciente">
-                <div className="div-foto-paciente">             
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfp79_BnOxH5sIOtUHwl-0jvY2q0UNAJj57A&s" alt="foto usuario"/>          
+            <div className='flex items-end justify-end h-10 m-2'>
+                <Link to="/pacientes" className='pr-6 hover:bg-gray-100 md:hover:bg-transparent  md:hover:text-blue-700 y-700'> Volver </Link>
+            </div>
+
+            <div className="pt-10 px-10">
+                <div className="flex w-full items-center justify-center py-5 ">
+                    <div className="flex flex-col items-center w-full max-w-test shadow-md py-2">
+                        <div className="div-foto-paciente">             
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfp79_BnOxH5sIOtUHwl-0jvY2q0UNAJj57A&s" alt="foto usuario"/>          
+                        </div>
+                    </div>
                 </div>
 
-                <div className="div-campanita-paciente">
-                    <img src="https://cdn-icons-png.flaticon.com/512/18/18666.png" alt="notificacion"/>
+                <div className="flex w-full items-center justify-center py-5 ">
+                    <div className="flex flex-col py-1 px-2 w-full max-w-test shadow-md">
+                        <p className="py-2 pc:text-xl iphone12:text-sm">Nombre: {usuarioActual.nombre}</p>
+                        <p className="py-2 pc:text-xl iphone12:text-sm">Fecha nacimiento: {usuarioActual.fechaNa}</p>
+                        <p className="py-2 pc:text-xl iphone12:text-sm">Email: {usuarioActual.email}</p>
+                        <p className="py-2 pc:text-xl iphone12:text-sm">Tipo: {usuarioActual.tipo}</p>
+                        <p className="py-2 pc:text-xl iphone12:text-sm">Contacto telefónico: {usuarioActual.contacto}</p>
+                        <p className="py-2 pc:text-xl iphone12:text-sm">Seguimientos en el año: {usuarioActual.estado.seguimientos}</p>
+                        <p className="py-2 pc:text-xl iphone12:text-sm">Promedio de calificación: {usuarioActual.estado.promedio}/4</p>
+                        <p className="py-2 pc:text-xl iphone12:text-sm text-lef">Probabilidad de padecer diabetes: {usuarioActual.estado.probabilidad}</p>
+                    </div>
                 </div>
 
-                <div className="div-datos-paciente">
-                    <p>Nombre: {usuario.nombre}</p>
-                    <p>Email: {usuario.email}</p>
-                    <p>Tipo: {usuario.tipo}</p>
-                    <p>Contacto telefónico: {usuario.contacto}</p>
-                    <p>Seguimientos en el año: {usuario.estado.seguimientos}</p>
-                    <p>Promedio de calificación: {usuario.estado.promedio}/10</p>
-                    <p>Probabilidad de padecer diabetes: {usuario.estado.probabilidad}</p>
-                </div>
+                {usuarioActual.tutor.tutornombre !== "no aplica" && (
+                    <div className="flex w-full items-center justify-center py-5 ">
+                        <div className="flex flex-col py-1 px-2 w-full max-w-test shadow-md">
+                            <p className="py-2 pc:text-xl iphone12:text-sm">Nombre tutor: {usuarioActual.tutor.tutornombre}</p>
+                            <p className="py-2 pc:text-xl iphone12:text-sm">Parentesco: {usuarioActual.tutor.parentesco}</p>
+                        </div>
+                    </div>   
+                )}
 
-                <div>
-                    <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="flex w-full items-center justify-center pt-3 ">
+                    <form onSubmit={handleSubmit(onSubmit)} className="flex w-full max-w-test">
                         <div className="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50">
-                            <div className="px-4 py-2 bg-white rounded-t-lg">
-                                <label htmlFor="comment" className="sr-only">Your comment</label>
+                            <div className="w-full px-4 py-2 bg-white rounded-t-lg ">
                                 <textarea
                                     id="comment"
                                     rows="4"
-                                    className="w-full px-0 text-sm text-gray-900 bg-white border-0"
+                                    className="w-full pc:text-xl iphone12:text-sm text-sm text-gray-900 bg-white border-0"
                                     placeholder="Empieza a escribir aqui"
                                     required
                                     {...register('comment')}
                                 ></textarea>
                             </div>
+                            
                             <div className="flex items-center justify-between px-3 py-2 border-t">
-                                <button type="submit" className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800">
+                                <button type="submit" className="inline-flex items-center py-2.5 px-4 pc:text-xl iphone12:text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800">
                                     Enviar comentario
                                 </button>
                             </div>
@@ -56,17 +97,17 @@ function InfoMedico() {
                     </form>
                 </div>
 
-                <div className="flex flex-col items-center p-5">
-                    <Link to="/test" className="radio-boton-paciente flex w-60 justify-center mt-3 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        Hacer test
-                    </Link>
-                    <button className="radio-boton-paciente flex w-60 justify-center mt-3 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" type="button">
-                        Ver resultado del test
-                    </button>
-                </div>
             </div>
+
+           
+            {mensajeConfirmacionVisible && (
+                <MensajeConfirmacion 
+                    mensaje={mensajeConfirmacion}
+                    onAceptar={handleAceptarConfirmacion}
+                />
+            )}
         </>
-    );    
+    );
 }
 
 export default InfoMedico;

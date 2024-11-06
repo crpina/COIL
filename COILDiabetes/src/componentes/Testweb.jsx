@@ -1,11 +1,15 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
+import useUsuarios2 from '../customsHOOKS/useUsuarios2';
+import useInfologin from '../customsHOOKS/useInfologin';
+
 
 const jsonPreguntas = [
     {
         "pregunta": "¿Cuál es la frecuencia con la que revisa sus niveles de glucosa en sangre?",
         "tipo": "salud",
-        "opciones": ["Todos los díasa", "Varias veces a la semana", "Una vez a la semana", "Menos de una vez a la semana"]
+        "opciones": ["Todos los días", "Varias veces a la semana", "Una vez a la semana", "Menos de una vez a la semana"]
     },
     {
         "pregunta": "¿Con qué frecuencia realiza controles médicos para evaluar su salud en relación con la diabetes (por ejemplo, exámenes de fondo de ojo, chequeos de pies)?",
@@ -76,48 +80,71 @@ const jsonPreguntas = [
         "pregunta": "En su última consulta con un nutriólogo, ¿le mencionaron que necesita mejorar su alimentación?",
         "tipo": "salud",
         "opciones": ["No, nunca", "Sí en la última consulta", "Sí, en las dos últimas consultas", "No voy al nutriólogo"]
-}]
+    }
+];
 
 function Testweb() {
+    
+    const navigar = useNavigate();
+    const { usuarioActual } = useInfologin();
+    const { agregarTestResult } = useUsuarios2();
+    const { register, handleSubmit, getValues } = useForm();
+    
+    
+    const onSubmit = async () => {
+        
+        const values = getValues();
+        const sum = Object.values(values).reduce((acc, curr) => acc + Number(curr), 0);
+        const resultado = sum / 15;
+        const resultadoRedondeado = Math.round(resultado);
 
-
-    const { register, handleSubmit } = useForm();
-    const onSubmit = (data) => {
-        console.log(data); // Aquí puedes manejar las respuestas
+        const test = {
+            "email": usuarioActual.email,
+            "calificacion": resultadoRedondeado.toString()
+        };
+        console.log("elecciones: "+ values)
+        console.log("sin round: "+ resultado)
+        console.log("redondeado: "+ resultadoRedondeado)
+        await agregarTestResult(test);
+        
+        navigar("/test-individual");
+        
     };
 
     return (
-        <div className='flex justify-center pt-8'>
-        <form onSubmit={handleSubmit(onSubmit)} className=' max-w-xl    '>
-            {jsonPreguntas.map((preguntaObj, index) => (
-                <div key={index} className="pregunta p-6 shadow-md m-5">
-                    <h3 className='text-center  pc:text-xl iphone12:text-sm'>{preguntaObj.pregunta}</h3>
-                   
-                    {preguntaObj.opciones.map((opcion, idx) => (
-                        <div key={idx}>
-                            <label className='pc:text-xl iphone12:text-sm '>
-                                <input className='mr-2 my-1'
-                                    type="radio"
-                                    value={idx + 1} // Almacenamos el índice + 1 como respuesta
-                                    {...register(`respuesta${index}`, {required: true})}/>
-                                {opcion}
-                            </label>
-                            
-                        </div>
-                    ))}
-       
-                </div>
-                
-            ))}
-               
-
-            <div className='flex justify-center p-8'>
-
-                <button type="submit" className='w-60 justify-center mt-3 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'>Enviar</button>
+        <>
+            <div className='flex items-end justify-end h-10 m-2'>
+                <Link to="/infopac" className='pr-6 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700'> Volver </Link>
             </div>
             
-        </form>
-        </div>
+            <div className='flex justify-center pt-8'>
+                <form onSubmit={handleSubmit(onSubmit)} className='max-w-xl'>
+                    {jsonPreguntas.map((preguntaObj, index) => (
+                        <div key={index} className="pregunta p-6 shadow-md m-5">
+                            <h3 className='text-center pc:text-xl iphone12:text-sm'>{preguntaObj.pregunta}</h3>
+                            {preguntaObj.opciones.map((opcion, idx) => (
+                                <div key={idx}>
+                                    <label className='pc:text-xl iphone12:text-sm '>
+                                        <input className='mr-2 my-1'
+                                            type="radio"
+                                            value={idx + 1} 
+                                            {...register(`respuesta${index}`, { required: true })} />
+                                        {opcion}
+                                    </label>
+                                </div>
+                            ))}
+                        </div>
+                    ))}
+                    
+                    <div className='flex justify-center p-8'>
+                        <button type="submit" className='w-60 justify-center mt-3 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'>
+                            Enviar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </>
     );
 };
-export default Testweb
+
+export default Testweb;

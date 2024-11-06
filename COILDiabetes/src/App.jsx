@@ -11,6 +11,9 @@ import Testweb from "./componentes/Testweb";
 import InfoMedico from "./componentes/VistaMedico";
 import VistaPacientesMed from "./componentes/VistaPacientesMed";
 import NotFound from "./models/notFound";
+import VerResultadosTest from "./componentes/VerResultadosTest"; 
+import NotificacionesMjs from "./componentes/NotificacionesMsj";
+import MsjResultadoTest from "./componentes/MsjResultadoTest";
 import { PublicRoutes } from "./models/routes";
 
 function App() {
@@ -29,6 +32,9 @@ function App() {
               <Route path={PublicRoutes.TEST} element={<Testweb />} />
               <Route path={PublicRoutes.MEDICO} element={<InfoMedico />} />
               <Route path={PublicRoutes.PACIENTES} element={<VistaPacientesMed />} />
+              <Route path={PublicRoutes.VER_RESULTADOS_TEST} element={<VerResultadosTest />} /> 
+              <Route path={PublicRoutes.NOTIFICACIONES} element={<NotificacionesMjs />} />
+              <Route path={PublicRoutes.VER_RESULTADO_TEST_INDIVIDUAL } element={<MsjResultadoTest />} />
             </NotFound>
           </BrowserRouter>
         </Provider>

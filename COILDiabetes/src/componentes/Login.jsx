@@ -1,32 +1,43 @@
 import { useForm } from "react-hook-form";  
 import { Link, useNavigate } from "react-router-dom"; 
-import usuarios from "../DB falsa/usuarios.json";
+import { useState } from "react";
+import useInfologin from "../customsHOOKS/useInfologin";
+import useUsuario2 from "../customsHOOKS/useUsuarios2";
+import MensajeConfirmacion from "./MensajeConfirmacion";
 
 function Login() {
-    
+    const [mensaje, setMensaje] = useState("Usuario o contraseña incorrectos");
+    const [mostrarMensaje, setMostrarMensaje] = useState(false);
     const { register, formState: { errors }, handleSubmit } = useForm();
-
     const navigate = useNavigate(); 
+    const { actualizarUsuario } = useInfologin();
+    const { buscarUsuario } = useUsuario2();
 
     const onSubmit = (data) => {
-        const cuentaValida = usuarios.find(cuenta => 
-            data.email === cuenta.email && data.contra === cuenta.contrasena
-        );
+        const cuentaValida = buscarUsuario(data.email, data.contrasena);
 
         if (cuentaValida) {
+            // Redireccionamos según el tipo de usuario
             if (cuentaValida.tipo === "paciente") {
-                console.log("Válidos: " + data.email + " y " + data.contra);
+                console.log("Paciente autenticado: " + data.email);
+                actualizarUsuario(cuentaValida);
                 navigate("/infopac");
             } else if (cuentaValida.tipo === "medico") {
-                console.log("Válidos: " + data.email + " y " + data.contra);
+                console.log("Médico autenticado: " + data.email);
+                actualizarUsuario(cuentaValida);
                 navigate("/pacientes");
             } else {
                 console.log("Tipo de cuenta no válido: " + cuentaValida.tipo);
             }
         } else {
-            console.log("NO válidos: " + data.email + " y " + data.contra);
+            console.log("Credenciales no válidas: " + data.email + " y " + data.contrasena);
+            setMostrarMensaje(true); 
         }
-    }    
+    };
+
+    const manejarAceptar = () => {
+        setMostrarMensaje(false); 
+    };
 
     return (
         <div className="flex flex-col pt-24">
@@ -53,10 +64,10 @@ function Login() {
                         type="password"
                         className="block w-60 h-9 pl-2 placeholder:pl-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" 
                         placeholder="**********************" 
-                        {...register("contra", { required: true, maxLength: 30 })} 
+                        {...register("contrasena", { required: true, maxLength: 30 })} 
                     />
-                    {errors.contra?.type === 'required' && <p className="text-red-600">"Contraseña requerida!"</p>}
-                    {errors.contra?.type === 'maxLength' && <p className="text-red-600">"La contraseña es demasiado larga"</p>}
+                    {errors.contrasena?.type === 'required' && <p className="text-red-600">"Contraseña requerida!"</p>}
+                    {errors.contrasena?.type === 'maxLength' && <p className="text-red-600">"La contraseña es demasiado larga"</p>}
                 </div>
 
                 <div className="flex flex-col items-center p-5">
@@ -73,10 +84,16 @@ function Login() {
                         Registrar
                     </Link>
                 </div>
-            </form>        
+            </form> 
+            
+            {mostrarMensaje && (
+                <MensajeConfirmacion 
+                    mensaje={mensaje} 
+                    onAceptar={manejarAceptar} 
+                />
+            )}       
         </div>
     );
-  
 }
 
 export default Login;
